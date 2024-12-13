@@ -1,0 +1,2 @@
+ [INFO] Se vendio: a,a
+2024-12-13 20:31:14 [INFO] Se vendio: Versace_Eros_Eau_de_Toilette,95

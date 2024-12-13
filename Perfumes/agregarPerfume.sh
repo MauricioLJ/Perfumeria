@@ -4,7 +4,7 @@
 
 # Directorios
 PERFUMES_FILE="Perfumes/perfumes.txt"
-LOG_FILE="reportesPerfume.xt"  # Ruta del archivo de log fuera del proyecto
+LOG_FILE="Logs/logs.txt"  # Ruta del archivo de log fuera del proyecto
 
 # Función para agregar perfumes
 agregar_perfume() {
@@ -16,11 +16,11 @@ agregar_perfume() {
     
     if [ ! -f "$PERFUMES_FILE" ]; then
         echo "$perfume_name,$perfume_price" > "$PERFUMES_FILE"
-        echo "$fecha - Se agregó $perfume_name (precio: $perfume_price) a $PERFUMES_FILE" >> "$LOG_FILE"
+        echo "$fecha [INFO] Se agregó $perfume_name (precio: $perfume_price) a $PERFUMES_FILE" >> "$LOG_FILE"
         echo "Se agregó $perfume_name (precio: $perfume_price) a $PERFUMES_FILE"
     else
         echo "$perfume_name,$perfume_price" >> "$PERFUMES_FILE"
-        echo "$fecha - Se agregó $perfume_name (precio: $perfume_price) a $PERFUMES_FILE" >> "$LOG_FILE"
+        echo "$fecha [INFO] Se agregó $perfume_name (precio: $perfume_price) a $PERFUMES_FILE" >> "$LOG_FILE"
         echo "Se agregó $perfume_name (precio: $perfume_price) a $PERFUMES_FILE"
     fi
 }

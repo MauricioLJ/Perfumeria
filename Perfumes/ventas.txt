@@ -1,1 +1,4 @@
 DIOR,100
+a,a
+Versace_Eros_Eau_de_Toilette,95
+Dior_Sauvage_Eau_de_Toilette,100

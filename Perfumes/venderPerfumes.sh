@@ -1,9 +1,8 @@
  #!/bin/bash
 
-PERFUMES_FILE="perfumes.txt"
-
-
-VENTAS_FILE="ventas.txt"
+PERFUMES_FILE="Perfumes/perfumes.txt"
+LOG_FILE="Logs/logs.txt"
+VENTAS_FILE="Perfumes/ventas.txt"
 
 
 listar_perfumes() {
@@ -37,15 +36,17 @@ vender_perfume() {
 		return
 	fi
 
+	local fecha=$(date '+%Y-%m-%d %H:%M:%S')
+
 	#Se obtiene el perfume seleccionado
 	perfume=$(sed -n "${opcion}p" "$PERFUMES_FILE")
-	
 
 
 
 	#Se agrega el perfume vendido al archivo de ventas
 	echo "$perfume" >> "$VENTAS_FILE"
-	echo "Se a vendido: $perfume"
+	echo "$fecha [INFO] Se vendio: $perfume" >> "$LOG_FILE"
+	echo "Se a vendido: $perfume "
 
 
 	#Se elimina el perfume del archivo original

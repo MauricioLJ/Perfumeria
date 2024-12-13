@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ARCHIVO_BODEGAS="Bodegas/bodegas.txt"
-LOGFILE="reportesBodega.txt"
+LOGFILE="Logs/logs.txt"
 
 #Agregar Bodega
 
@@ -14,7 +14,7 @@ read contacto
 
 #Crear archivo
 echo "Nombre: $nombre, Direccion: $direccion, Contacto: $contacto" >> "$ARCHIVO_BODEGAS"
-echo "La bodega $nombre  se a guardado en $ARCHIVO_BODEGA"
+echo "La bodega $nombre  se a guardado en $ARCHIVO_BODEGAS"
 
 # Registrar el evento en el log
 echo "$(date +'%Y-%m-%d %H:%M:%S') [INFO] Bodega agregada: Nombre='$nombre', Direccion='$direccion', Contacto='$contacto'" >> "$LOGFILE"

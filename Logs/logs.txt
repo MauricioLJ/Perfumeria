@@ -1,0 +1,4 @@
+2024-12-13 20:08:30 [INFO] Bodega agregada: Nombre='2', Direccion='Guanacaste', Contacto='Del McDonalds 100 metros este'
+2024-12-13 20:09:37 [INFO] Bodega agregada: Nombre='Guanacaste', Direccion='100 metros norte del McDonalds', Contacto='90325478'
+2024-12-13 20:34:17 [INFO] Se vendio: Dior_Sauvage_Eau_de_Toilette,100
+2024-12-13 20:38:43 [INFO] Se agregó Creed Silver Mountain Water (precio: 300) a Perfumes/perfumes.txt

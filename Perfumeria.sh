@@ -72,6 +72,7 @@ submenu() {
 			echo "1. Mostrar perfumes"
 			echo "2. Agregar perfumes"
 			echo "3. Vender perfume"
+			echo "4. Mostrar Ventas"
 			read -p "Seleccione una opcion: " subopcion
 			case $subopcion in
 				1)
@@ -82,6 +83,9 @@ submenu() {
 					;;
 				3)
 					ejecutar_script "$BASE_DIR/Perfumes/venderPerfumes.sh"
+					;;
+				4)
+					mostrar_datos "$BASE_DIR/Perfumes/ventas.txt"
 					;;
 				*)
 					echo "Opcion no valida"
