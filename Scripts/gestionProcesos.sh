@@ -1,25 +1,28 @@
 #!/bin/bash
 
-# Crear un proceso en segundo plano
-sleep 60 &
-PID=$!
-echo "Se inició un nuevo proceso en segundo plano (PID: $PID)"
+# Archivo de log
+LOG_FILE="Logs/logs.txt"
 
-# Verificar el estado del proceso
-if ps -p $PID > /dev/null; then
-    echo "El proceso con PID $PID está en ejecución."
+# Ver el uso de la memoria
+echo "Uso de memoria:"
+free -h >> "$LOG_FILE"
+
+# Ver estadísticas de la memoria virtual
+echo "Estadísticas de memoria virtual:"
+vmstat >> "$LOG_FILE"
+
+# Monitorear el uso de swap
+echo "Uso de swap:"
+swapon -s >> "$LOG_FILE"
+
+UMBRAL=80
+
+USO_MEMORIA=$(free | grep Mem | awk '{print $3/$2 * 100.0}')
+
+if (( $(echo "$USO_MEMORIA > $UMBRAL" | bc -l) )); then
+    echo "ALERTA: Uso de memoria ha superado el umbral de $UMBRAL%, Uso actual: $USO_MEMORIA%"
+    echo "[$(date)] ALERTA: Uso de memoria ha superado el umbral de $UMBRAL%, Uso actual: $USO_MEMORIA%" >> "$LOG_FILE"
 else
-    echo "El proceso con PID $PID no se encuentra activo."
-fi
-
-# Ajustar la prioridad del proceso
-renice -n 5 -p $PID > /dev/null 2>&1
-echo "Se cambió la prioridad del proceso con PID: $PID a 5."
-
-# Terminar el proceso
-kill $PID
-if [[ $? -eq 0 ]]; then
-    echo "El proceso con PID $PID fue terminado exitosamente."
-else
-    echo "No se pudo terminar el proceso con PID $PID."
+    echo "Uso de la memoria dentro de los límites: $USO_MEMORIA%"
+    echo "[$(date)] Uso de la memoria dentro de los límites: $USO_MEMORIA%" >> "$LOG_FILE"
 fi
