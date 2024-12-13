@@ -41,10 +41,8 @@ vender_perfume() {
 	#Se obtiene el perfume seleccionado
 	perfume=$(sed -n "${opcion}p" "$PERFUMES_FILE")
 
-
-
 	#Se agrega el perfume vendido al archivo de ventas
-	echo "$perfume" >> "$VENTAS_FILE"
+	flock "$VENTAS_FILE" -c "echo \"$perfume\" >> \"$VENTAS_FILE\""
 	echo "$fecha [INFO] Se vendio: $perfume" >> "$LOG_FILE"
 	echo "Se a vendido: $perfume "
 
