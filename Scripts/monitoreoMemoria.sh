@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Ver el uso de la memoria
+echo "Uso de memoria:"
+free -h
+
+# Ver estadísticas de la memoria virtual
+echo "Estadísticas de memoria virtual:"
+vmstat
+
+# Monitorear el uso de swap
+echo "Uso de swap:"
+swapon -s
+
 UMBRAL=80
 
 USO_MEMORIA=$(free | grep Mem | awk '{print $3/$2 * 100.0}')
