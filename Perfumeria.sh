@@ -1,9 +1,9 @@
 #!/bin/bash
 
-#Ruta de los directorios
+# Ruta de los directorios
 BASE_DIR="$(pwd)"
 
-#Funcion para mostrar los datos de los archivos .txt
+# Función para mostrar los datos de los archivos .txt
 mostrar_datos() {
 	local archivo=$1
 	if [[ -f $archivo ]]; then
@@ -17,16 +17,17 @@ mostrar_datos() {
 	fi
 }
 
-#Funcion para ejecutar un script
-
+# Función para ejecutar un script de forma sincronizada usando flock
 ejecutar_script() {
 	local script=$1
+	local lockfile="/tmp/$(basename "$script").lock"
+
 	if [[ -f $script ]]; then
 		echo ""
 		echo "Ejecutando $script..."
-		bash "$script"
+		flock -n "$lockfile" bash "$script"
 	else
-		echo""
+		echo ""
 		echo "El script $script no existe."
 	fi
 }
@@ -36,10 +37,10 @@ submenu() {
 	case $opcion in
 		1)
 			echo ""
-			echo "=====Submenu Bodegas====="
+			echo "===== Submenu Bodegas ====="
 			echo "1. Mostrar bodegas"
 			echo "2. Agregar Bodega"
-			read -p "Seleccione una opcion: " subopcion
+			read -p "Seleccione una opción: " subopcion
 			case $subopcion in
 				1)
 					mostrar_datos "$BASE_DIR/Bodegas/bodegas.txt"
@@ -48,32 +49,32 @@ submenu() {
 					ejecutar_script "$BASE_DIR/Bodegas/agregarBodega.sh"
 					;;
 				*)
-					echo "opcion no valida"
+					echo "Opción no válida"
 					;;
 			esac
 			;;
 		2)
 			echo ""
-			echo "=====Submenu Logs====="
+			echo "===== Submenu Logs ====="
 			echo "1. Mostrar logs"
-			read -p "Seleccione una opcion: " subopcion
+			read -p "Seleccione una opción: " subopcion
 			case $subopcion in
 				1)
 					mostrar_datos "$BASE_DIR/Logs/logs.txt"
 					;;
 				*)
-					echo "Opcion no valida."
+					echo "Opción no válida."
 					;;
 			esac
 			;;
 		3)
 			echo ""
-			echo "=====Submenu Perfumes====="
+			echo "===== Submenu Perfumes ====="
 			echo "1. Mostrar perfumes"
 			echo "2. Agregar perfumes"
 			echo "3. Vender perfume"
 			echo "4. Mostrar Ventas"
-			read -p "Seleccione una opcion: " subopcion
+			read -p "Seleccione una opción: " subopcion
 			case $subopcion in
 				1)
 					mostrar_datos "$BASE_DIR/Perfumes/perfumes.txt"
@@ -88,16 +89,16 @@ submenu() {
 					mostrar_datos "$BASE_DIR/Perfumes/ventas.txt"
 					;;
 				*)
-					echo "Opcion no valida"
+					echo "Opción no válida"
 					;;
 			esac
 			;;
 		4)
 			echo ""
-			echo "=====Submenu Proveedores====="
+			echo "===== Submenu Proveedores ====="
 			echo "1. Mostrar proveedores"
 			echo "2. Agregar proveedores"
-			read -p "Seleccione una opcion" subopcion
+			read -p "Seleccione una opción: " subopcion
 			case $subopcion in
 				1)
 					mostrar_datos "$BASE_DIR/Proveedores/proveedores.txt"
@@ -106,32 +107,31 @@ submenu() {
 					ejecutar_script "$BASE_DIR/Proveedores/agregarProveedor.sh"
 					;;
 				*)
-					echo "OPcionj no valida"
+					echo "Opción no válida"
 					;;
 			esac
 			;;
 		5)
 			echo ""
-			echo "=====Submenu Puntos de Venta====="
+			echo "===== Submenu Puntos de Venta ====="
 			echo "1. Mostrar puntos de venta"
 			echo "2. Agregar punto de venta"
-			read -p "Seleccione una opcion: " subopcion
+			read -p "Seleccione una opción: " subopcion
 			case $subopcion in
 				1)
 					mostrar_datos "$BASE_DIR/PuntosVenta/puntosVenta.txt"
 					;;
 				2)
-					ejecutar_script "$BASE_DIR/PuntosVenta/agregarPuntoVenmta.sh"
+					ejecutar_script "$BASE_DIR/PuntosVenta/agregarPuntoVenta.sh"
 					;;
 				*)
-					echo "Opcion no valida"
+					echo "Opción no válida"
 					;;
 			esac
 			;;
-
 		6)
 			echo ""
-			echo "===== Submenú Gestión del Sistema ====="
+			echo "===== Submenu Gestión del Sistema ====="
 			echo "1. Gestión de Procesos"
 			echo "2. Monitoreo de Memoria"
 			echo "3. Sincronización de Hilos"
@@ -151,14 +151,11 @@ submenu() {
 					;;
 			esac
 			;;
-
 		*)
-			echo "Opcion no valida"
+			echo "Opción no válida"
 			;;
 	esac
 }
-
-
 
 while true; do
 	echo ""
@@ -169,24 +166,18 @@ while true; do
 	echo "3. Perfumes"
 	echo "4. Proveedores"
 	echo "5. Puntos de Venta"
-	echo "6. Gestion del Sistema"
+	echo "6. Gestión del Sistema"
 	echo "7. Salir"
-	read -p "Seleccione una opcion: " opcion
+	read -p "Seleccione una opción: " opcion
 
 	if [[ $opcion -ge 1 && $opcion -le 6 ]]; then
 		submenu $opcion
 	elif [[ $opcion -eq 7 ]]; then
 		echo ""
-		echo "Salinedo del programa..."
+		echo "Saliendo del programa..."
 		break
 	else
 		echo ""
-		echo "Opcion no valida, intente de nuevo."
+		echo "Opción no válida, intente de nuevo."
 	fi
 done
-
-#hola
-
-
-
-
