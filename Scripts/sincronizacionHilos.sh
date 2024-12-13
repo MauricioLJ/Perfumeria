@@ -11,4 +11,4 @@ else
     echo "$(date): ERROR - Operación crítica no pudo completarse" >> "$BASE_DIR/Logs/logs.txt"
 fi
 
-#asdjahdashdjsdshajdahsjddlals
+#pruebaasdasdasd
